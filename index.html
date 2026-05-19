@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USArab Guide | Arab-American Community Platform</title>
+  <meta name="description" content="USArab Guide connects Arab communities and Americans across the United States with restaurants, events, activities, businesses, and community updates." />
+  <style>
+    *{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#172033;background:#faf7ef} a{text-decoration:none;color:inherit}
+    header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #eee;box-shadow:0 4px 20px rgba(0,0,0,.05)}
+    .nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:16px 20px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#0f3d5e,#c99b35);display:grid;place-items:center;color:#fff}.links{display:flex;gap:18px;font-weight:600}.links a{color:#29364a}.hero{background:linear-gradient(135deg,#0f3d5e,#1f6f8b);color:white;padding:70px 20px 55px}.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.2fr .8fr;gap:35px;align-items:center}.eyebrow{color:#ffe0a3;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.hero h1{font-size:54px;line-height:1.05;margin:12px 0}.hero p{font-size:20px;line-height:1.6;opacity:.95}.search{display:flex;gap:10px;background:white;padding:10px;border-radius:20px;max-width:650px;margin-top:25px}.search input{flex:1;border:0;outline:0;font-size:16px;padding:14px}.button,button{border:0;border-radius:14px;padding:14px 20px;background:#c99b35;color:#111;font-weight:800;cursor:pointer}.secondary{background:#0f3d5e;color:white}.hero-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:28px;padding:26px;backdrop-filter:blur(8px)}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}.stat{background:white;color:#172033;border-radius:18px;padding:18px}.stat b{font-size:26px;color:#0f3d5e}.section{max-width:1180px;margin:auto;padding:58px 20px}.section h2{font-size:36px;margin:0 0 10px}.section p.lead{font-size:18px;color:#596476;margin:0 0 28px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{background:#fff;border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(20,30,50,.08);border:1px solid #eee}.listing-img{height:90px;border-radius:20px;background:#f1e5cc;display:grid;place-items:center;font-size:44px;margin-bottom:18px}.card h3{margin:0 0 8px;font-size:22px}.card p{color:#5c6878;line-height:1.55}.tag{display:inline-block;margin:6px 6px 0 0;padding:7px 10px;border-radius:999px;background:#eef5f7;color:#0f3d5e;font-size:13px;font-weight:700}.banner{background:#172033;color:white;border-radius:30px;padding:36px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px}.feed{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}.post{background:white;border-radius:22px;padding:22px;border-left:5px solid #c99b35;box-shadow:0 8px 22px rgba(0,0,0,.06)}.footer{background:#101827;color:white;padding:35px 20px;margin-top:40px}.footer-inner{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30;place-items:center;padding:20px}.modal.show{display:grid}.modal-box{max-width:520px;background:white;border-radius:24px;padding:28px;color:#172033}.modal-box input,.modal-box textarea{width:100%;margin:8px 0;padding:13px;border:1px solid #ddd;border-radius:12px}.close{float:right;background:#eee;color:#111;padding:8px 12px}
+    @media(max-width:800px){.hero-inner,.grid,.feed{grid-template-columns:1fr}.links{display:none}.hero h1{font-size:38px}.banner{grid-template-columns:1fr}.search{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><div class="logo">UG</div> USArab Guide</div>
+      <div class="links"><a href="#restaurants">Restaurants</a><a href="#events">Events</a><a href="#businesses">Businesses</a><a href="#community">Community</a></div>
+      <button onclick="openModal('joinModal')">Join</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Arab-American Community Platform</div>
+        <h1>Discover. Connect. Celebrate. Belong.</h1>
+        <p>USArab Guide connects Arab communities and Americans across the United States with restaurants, events, activities, services, culture, and community support.</p>
+        <div class="search"><input id="searchInput" oninput="filterCards()" placeholder="Find restaurants, events, services, people…" /><button>Search</button></div>
+      </div>
+      <div class="hero-card">
+        <h2>One guide for the community</h2>
+        <p>Find trusted Arab businesses, family activities, cultural events, ticketing opportunities, groups, and community updates in one modern platform.</p>
+        <div class="stats"><div class="stat"><b>50+</b><br>States covered</div><div class="stat"><b>Arabic + English</b><br>Bilingual vision</div><div class="stat"><b>Events</b><br>Tickets & RSVP</div><div class="stat"><b>Local</b><br>Restaurants & services</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="restaurants" class="section"><h2>Featured Restaurants</h2><p class="lead">Explore Arab food, halal meals, desserts, catering, and local favorites.</p><div id="restaurantList" class="grid"></div></section>
+  <section id="events" class="section"><h2>Events & Ticketing</h2><p class="lead">Promote cultural nights, concerts, family programs, business mixers, and community gatherings.</p><div id="eventList" class="grid"></div></section>
+  <section id="businesses" class="section"><h2>Business Directory</h2><p class="lead">A trusted place for Arab and Arab-friendly professionals, services, and organizations.</p><div id="businessList" class="grid"></div></section>
+  <section id="community" class="section"><div class="banner"><div><h2>Build the USArab community with us</h2><p>Members can post questions, share recommendations, follow groups, promote businesses, and discover activities near them.</p></div><button onclick="openModal('joinModal')">Become a Member</button></div></section>
+  <section class="section"><h2>Community Feed Preview</h2><p class="lead">A future social feed for posts, recommendations, photos, videos, marketplace listings, and local help.</p><div class="feed"><div class="post"><b>Looking for Arabic classes in Virginia?</b><p>Members can ask and answer questions by city, topic, and interest.</p></div><div class="post"><b>New Arab food festival this weekend</b><p>Event organizers can post details, collect RSVP, and sell tickets.</p></div><div class="post"><b>Small business spotlight</b><p>Feature restaurants, doctors, real estate, legal, finance, travel, and community services.</p></div><div class="post"><b>Groups by state and nationality</b><p>Create groups such as Arabs in Virginia, Lebanese Community, Egyptian Community, Arab Business Owners, Students in USA, and more.</p></div></div></section>
+
+  <div id="joinModal" class="modal"><div class="modal-box"><button class="close" onclick="closeModal('joinModal')">X</button><h2>Join USArab Guide</h2><p>This is a demo contact form. In the next phase, it can connect to email, database, and real member accounts.</p><input placeholder="Full name"><input placeholder="Email"><input placeholder="City / State"><textarea placeholder="Tell us if you are a member, business owner, or event organizer"></textarea><button onclick="closeModal('joinModal')">Submit Interest</button></div></div>
+
+  <footer class="footer"><div class="footer-inner"><div><b>USArab Guide</b><p>Connecting Arabs and Americans across the United States.</p></div><div>Restaurants • Events • Businesses • Activities • Community</div></div></footer>
+  <script src="app.js"></script>
+</body>
+</html>
