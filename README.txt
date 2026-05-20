@@ -1,1 +1,0 @@
-Upload index.html, styles.css, and app.js to your GitHub repository root. Do not upload the folder itself.
