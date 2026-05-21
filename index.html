@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USArab Guide Social</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<header class="topbar">
+  <div class="brand" onclick="route('home')">
+    <div class="logo">UA</div>
+    <div>
+      <h1>USArab Guide</h1>
+      <p>Arab-American Social Network</p>
+    </div>
+  </div>
+
+  <div class="globalSearch">
+    <span>⌕</span>
+    <input id="globalSearch" placeholder="Search people, restaurants, events, posts..." oninput="searchEverything()" />
+  </div>
+
+  <nav class="desktopNav">
+    <button onclick="route('home')" data-nav="home">Home</button>
+    <button onclick="route('feed')" data-nav="feed">Feed</button>
+    <button onclick="route('discover')" data-nav="discover">Discover</button>
+    <button onclick="route('events')" data-nav="events">Events</button>
+    <button onclick="route('groups')" data-nav="groups">Groups</button>
+    <button onclick="route('market')" data-nav="market">Market</button>
+  </nav>
+
+  <div class="accountBox">
+    <button class="ghost" onclick="openAuth()">Sign in</button>
+    <button onclick="route('admin')">Admin</button>
+  </div>
+</header>
+
+<main class="shell">
+  <aside class="leftRail">
+    <div class="profileMini">
+      <div class="avatar big">M</div>
+      <h3 id="miniName">Guest Member</h3>
+      <p id="miniRole">Community Explorer</p>
+      <button onclick="openAuth()">Create / Switch Account</button>
+    </div>
+    <div class="railMenu">
+      <button onclick="route('feed')">🏠 News Feed</button>
+      <button onclick="route('discover')">🍽️ Restaurants & Services</button>
+      <button onclick="route('events')">🎟️ Events & Tickets</button>
+      <button onclick="route('groups')">👥 Groups</button>
+      <button onclick="route('market')">🛍️ Marketplace</button>
+      <button onclick="route('messages')">💬 Messages</button>
+      <button onclick="route('admin')">⚙️ Admin Control</button>
+    </div>
+  </aside>
+
+  <section class="content">
+    <section id="home" class="page active">
+      <div class="hero">
+        <div>
+          <span class="badge">The Arab-American community app</span>
+          <h2>Connect, discover, post, join, attend, and grow your community.</h2>
+          <p>USArab Guide is designed like a modern social network for Arabs and Americans — combining community posts, restaurants, events, groups, marketplace, business pages, and member connections.</p>
+          <div class="heroActions">
+            <button onclick="route('feed')">Open Social Feed</button>
+            <button class="ghost" onclick="openAuth()">Join Now</button>
+          </div>
+        </div>
+        <div class="phonePreview">
+          <div class="storyRow">
+            <div>🍽️<span>Food</span></div><div>🎟️<span>Events</span></div><div>👥<span>Groups</span></div>
+          </div>
+          <div class="miniPost">
+            <b>Arab Culture Night</b>
+            <p>Music, dabke, food, vendors and networking.</p>
+          </div>
+          <div class="miniPost">
+            <b>Best kunafa near DC?</b>
+            <p>23 replies from the community.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sectionTitle">
+        <h2>Built as a full social platform foundation</h2>
+        <p>Separate user experience, admin dashboard, content management, join requests, posts, groups, events and marketplace.</p>
+      </div>
+      <div class="featureGrid">
+        <article onclick="route('feed')"><span>💬</span><h3>Social Feed</h3><p>Members can post, like, comment, save and share local updates.</p></article>
+        <article onclick="route('discover')"><span>🍽️</span><h3>Discover</h3><p>Restaurants, services, Arab professionals and local business pages.</p></article>
+        <article onclick="route('events')"><span>🎟️</span><h3>Events</h3><p>RSVP-ready event pages for cultural, business and family activities.</p></article>
+        <article onclick="route('admin')"><span>⚙️</span><h3>Admin Area</h3><p>Separate dashboard to manage posts, members, listings and requests.</p></article>
+      </div>
+    </section>
+
+    <section id="feed" class="page">
+      <div class="composer card">
+        <div class="composerTop">
+          <div class="avatar" id="composerAvatar">M</div>
+          <input id="postText" placeholder="What would you like to share with the community?" />
+        </div>
+        <div class="composerTools">
+          <button class="soft" onclick="postType='general';createPost()">💬 Post</button>
+          <button class="soft" onclick="postType='recommendation';createPost()">⭐ Recommendation</button>
+          <button class="soft" onclick="postType='event';createPost()">🎟️ Event Notice</button>
+          <button class="soft" onclick="postType='help';createPost()">🤝 Ask for Help</button>
+        </div>
+      </div>
+
+      <div class="stories">
+        <div onclick="route('events')">🎶<b>Culture Night</b><span>DC</span></div>
+        <div onclick="route('discover')">🥙<b>New Restaurant</b><span>VA</span></div>
+        <div onclick="route('groups')">👥<b>Arab Moms</b><span>Join</span></div>
+        <div onclick="route('market')">💼<b>Jobs</b><span>Hiring</span></div>
+      </div>
+
+      <div id="feedList"></div>
+    </section>
+
+    <section id="discover" class="page">
+      <div class="sectionTitle compact">
+        <h2>Discover restaurants, businesses & services</h2>
+        <p>Browse Arab restaurants, cafés, groceries, professionals and cultural places.</p>
+      </div>
+      <div id="placeGrid" class="gridCards"></div>
+    </section>
+
+    <section id="events" class="page">
+      <div class="sectionTitle compact">
+        <h2>Events & ticketing</h2>
+        <p>Culture, music, business networking, family activities and community gatherings.</p>
+      </div>
+      <div id="eventGrid" class="gridCards"></div>
+    </section>
+
+    <section id="groups" class="page">
+      <div class="sectionTitle compact">
+        <h2>Groups</h2>
+        <p>Join groups by city, nationality, business interest, students, parents and services.</p>
+      </div>
+      <div id="groupGrid" class="gridCards"></div>
+    </section>
+
+    <section id="market" class="page">
+      <div class="sectionTitle compact">
+        <h2>Marketplace</h2>
+        <p>Jobs, apartments, services, lessons, community help and local offers.</p>
+      </div>
+      <div class="card formCard">
+        <h3>Add a listing</h3>
+        <input id="marketTitle" placeholder="Listing title" />
+        <input id="marketCategory" placeholder="Category: Job, Housing, Service..." />
+        <textarea id="marketDesc" placeholder="Description"></textarea>
+        <button onclick="addMarket()">Publish Listing</button>
+      </div>
+      <div id="marketGrid" class="gridCards"></div>
+    </section>
+
+    <section id="messages" class="page">
+      <div class="sectionTitle compact">
+        <h2>Messages</h2>
+        <p>Prototype messaging area. Real private messaging requires Firebase or another backend.</p>
+      </div>
+      <div class="messenger">
+        <div id="chatList" class="chatList"></div>
+        <div class="chatWindow">
+          <h3 id="chatTitle">Select a conversation</h3>
+          <div id="chatMessages" class="chatMessages"></div>
+          <div class="chatInput"><input id="chatInput" placeholder="Write a message..." /><button onclick="sendMessage()">Send</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="admin" class="page">
+      <div id="adminLock" class="adminLock card">
+        <h2>Admin Control Center</h2>
+        <p>This area is separate from the user app. Use it to manage website content. Demo password: <b>admin123</b></p>
+        <input id="adminPassword" type="password" placeholder="Admin password" />
+        <button onclick="loginAdmin()">Enter Admin</button>
+      </div>
+
+      <div id="adminApp" class="adminApp hidden">
+        <div class="adminHeader">
+          <div>
+            <h2>Admin Dashboard</h2>
+            <p>Manage users, posts, events, businesses, groups and marketplace content.</p>
+          </div>
+          <button class="ghost" onclick="logoutAdmin()">Logout</button>
+        </div>
+
+        <div class="statGrid">
+          <div><h3 id="statUsers">0</h3><p>Users</p></div>
+          <div><h3 id="statPosts">0</h3><p>Posts</p></div>
+          <div><h3 id="statPlaces">0</h3><p>Places</p></div>
+          <div><h3 id="statEvents">0</h3><p>Events</p></div>
+          <div><h3 id="statJoins">0</h3><p>Join Requests</p></div>
+        </div>
+
+        <div class="adminTabs">
+          <button onclick="adminTab('overview')">Overview</button>
+          <button onclick="adminTab('addPlace')">Add Business</button>
+          <button onclick="adminTab('addEvent')">Add Event</button>
+          <button onclick="adminTab('requests')">Join Requests</button>
+          <button onclick="adminTab('moderation')">Moderation</button>
+        </div>
+
+        <div id="adminOverview" class="adminPanel card"></div>
+
+        <div id="adminAddPlace" class="adminPanel card hidden">
+          <h3>Add Business / Restaurant</h3>
+          <input id="aPlaceName" placeholder="Business name" />
+          <input id="aPlaceType" placeholder="Type: Restaurant, Legal, Grocery..." />
+          <input id="aPlaceCity" placeholder="City / State" />
+          <input id="aPlaceTag" placeholder="Tag" />
+          <textarea id="aPlaceDesc" placeholder="Description"></textarea>
+          <button onclick="addPlaceAdmin()">Add Business</button>
+        </div>
+
+        <div id="adminAddEvent" class="adminPanel card hidden">
+          <h3>Add Event</h3>
+          <input id="aEventTitle" placeholder="Event title" />
+          <input id="aEventDate" placeholder="Date" />
+          <input id="aEventPlace" placeholder="Location" />
+          <input id="aEventPrice" placeholder="Price / RSVP" />
+          <textarea id="aEventDesc" placeholder="Description"></textarea>
+          <button onclick="addEventAdmin()">Add Event</button>
+        </div>
+
+        <div id="adminRequests" class="adminPanel card hidden"></div>
+        <div id="adminModeration" class="adminPanel card hidden"></div>
+      </div>
+    </section>
+  </section>
+
+  <aside class="rightRail">
+    <div class="card">
+      <h3>Suggested groups</h3>
+      <div id="suggestGroups"></div>
+    </div>
+    <div class="card">
+      <h3>Upcoming events</h3>
+      <div id="suggestEvents"></div>
+    </div>
+    <div class="card joinMini">
+      <h3>Join USArab Guide</h3>
+      <p>Create a member request and start connecting.</p>
+      <input id="joinName" placeholder="Name" />
+      <input id="joinEmail" placeholder="Email" />
+      <button onclick="joinRequest()">Request Access</button>
+    </div>
+  </aside>
+</main>
+
+<div class="mobileNav">
+  <button onclick="route('home')">⌂<span>Home</span></button>
+  <button onclick="route('feed')">●<span>Feed</span></button>
+  <button onclick="route('discover')">⌕<span>Find</span></button>
+  <button onclick="route('events')">◷<span>Events</span></button>
+  <button onclick="route('admin')">⚙<span>Admin</span></button>
+</div>
+
+<div id="authModal" class="modal">
+  <div class="modalBox">
+    <button class="x" onclick="closeAuth()">×</button>
+    <h2>Create / switch member profile</h2>
+    <p>This creates a local demo profile. Real secure accounts require Firebase Authentication.</p>
+    <input id="authName" placeholder="Full name" />
+    <input id="authCity" placeholder="City / State" />
+    <select id="authRole">
+      <option>Community Member</option>
+      <option>Business Owner</option>
+      <option>Event Organizer</option>
+      <option>Service Provider</option>
+    </select>
+    <button onclick="saveProfile()">Continue</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
