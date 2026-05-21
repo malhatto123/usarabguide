@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USArab Guide</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<header class="topbar">
+  <div class="brand" onclick="showPage('home')">
+    <div class="logo">UA</div>
+    <div><h1>USArab Guide</h1><p>Arab-American Community Network</p></div>
+  </div>
+  <div class="top-search"><span>⌕</span><input id="searchInput" placeholder="Search..." oninput="searchItems()" /></div>
+  <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+  <nav id="mainMenu">
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('feed')">Feed</button>
+    <button onclick="showPage('discover')">Discover</button>
+    <button onclick="showPage('events')">Events</button>
+    <button onclick="showPage('groups')">Groups</button>
+    <button onclick="showPage('market')">Marketplace</button>
+    <button onclick="showPage('join')">Join</button>
+  </nav>
+</header>
+
+<main class="app-shell">
+  <aside class="left-sidebar">
+    <div class="profile-card">
+      <div class="cover"></div><div class="avatar large">UA</div>
+      <h3>USArab Member</h3><p>Connect. Discover. Belong.</p>
+      <button onclick="showPage('join')">Create Profile</button>
+    </div>
+    <div class="side-menu">
+      <button onclick="showPage('feed')">🏠 News Feed</button>
+      <button onclick="showPage('groups')">👥 Groups</button>
+      <button onclick="showPage('events')">🎟️ Events</button>
+      <button onclick="showPage('discover')">📍 Restaurants & Businesses</button>
+      <button onclick="showPage('market')">🛍️ Marketplace</button>
+      <button onclick="showPage('join')">✨ Join USArab Guide</button>
+    </div>
+  </aside>
+
+  <section class="content">
+    <section id="home" class="page active">
+      <div class="hero">
+        <div>
+          <span class="badge">Firebase Cloud Connected</span>
+          <h2>One place for community, culture, food, events, groups, and local discovery.</h2>
+          <p>Posts, groups, events, businesses, listings and join requests now save in Firebase Firestore so the data can stay online.</p>
+          <div class="hero-actions"><button onclick="showPage('feed')">Open Feed</button><button class="secondary" onclick="showPage('groups')">Explore Groups</button></div>
+        </div>
+        <div class="hero-card">
+          <div class="mini-story">☁️ Firebase Database</div>
+          <div class="mini-story">💬 Live Social Feed</div>
+          <div class="mini-story">👥 Cloud Groups</div>
+          <div class="mini-story">⚙️ Owner Dashboard</div>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article onclick="showPage('feed')"><span>💬</span><h3>Social Feed</h3><p>Share posts, ask questions, like updates.</p></article>
+        <article onclick="showPage('groups')"><span>👥</span><h3>Groups</h3><p>Create and join community groups.</p></article>
+        <article onclick="showPage('events')"><span>🎟️</span><h3>Events</h3><p>Add and discover cultural events.</p></article>
+        <article onclick="showPage('discover')"><span>📍</span><h3>Discover</h3><p>Browse businesses and restaurants.</p></article>
+      </div>
+    </section>
+
+    <section id="feed" class="page">
+      <div class="page-head"><h2>News Feed</h2><p>Community posts saved in Firebase.</p></div>
+      <div class="composer card">
+        <div class="composer-row"><div class="avatar">U</div><textarea id="postText" placeholder="What would you like to share?"></textarea></div>
+        <div class="composer-actions"><input id="postName" placeholder="Your name" /><button onclick="addPost('💬')">Post</button><button class="secondary" onclick="addPost('⭐')">Recommendation</button></div>
+      </div>
+      <div id="postList"></div>
+    </section>
+
+    <section id="discover" class="page">
+      <div class="page-head"><h2>Discover Restaurants & Businesses</h2><p>Arab restaurants, cafés, services, groceries and professionals.</p></div>
+      <div id="businessList" class="cards"></div>
+    </section>
+
+    <section id="events" class="page">
+      <div class="page-head"><h2>Events & Activities</h2><p>Culture, networking, family activities and community gatherings.</p></div>
+      <div id="eventList" class="cards"></div>
+    </section>
+
+    <section id="groups" class="page">
+      <div class="page-head with-action"><div><h2>Community Groups</h2><p>Create groups, join groups, and connect.</p></div><button onclick="openGroupForm()">+ Create Group</button></div>
+      <div id="groupForm" class="card form-card hidden">
+        <h3>Create a Group</h3>
+        <input id="groupName" placeholder="Group name" />
+        <input id="groupCategory" placeholder="Category" />
+        <textarea id="groupDesc" placeholder="Group description"></textarea>
+        <div class="form-actions"><button onclick="addGroup()">Create Group</button><button class="secondary" onclick="closeGroupForm()">Cancel</button></div>
+      </div>
+      <div id="groupList" class="cards"></div>
+    </section>
+
+    <section id="market" class="page">
+      <div class="page-head"><h2>Marketplace</h2><p>Jobs, apartments, services, lessons, and local offers.</p></div>
+      <div class="composer card">
+        <input id="listingTitle" placeholder="Listing title" />
+        <input id="listingCategory" placeholder="Category" />
+        <textarea id="listingDesc" placeholder="Description"></textarea>
+        <button onclick="addListing()">Add Listing</button>
+      </div>
+      <div id="marketList" class="cards"></div>
+    </section>
+
+    <section id="join" class="page">
+      <div class="join-box card">
+        <span class="badge">Join USArab Guide</span>
+        <h2>Create a member, business, or organizer request</h2>
+        <p>Your request will save in Firebase for the owner to review.</p>
+        <div class="join-form">
+          <input id="joinName" placeholder="Full name" />
+          <input id="joinEmail" placeholder="Email address" />
+          <input id="joinCity" placeholder="City / State" />
+          <select id="joinType"><option>Community Member</option><option>Business Owner</option><option>Event Organizer</option><option>Service Provider</option></select>
+          <button onclick="submitJoin()">Submit Request</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="admin" class="page">
+      <div id="adminLogin" class="card admin-login">
+        <h2>Owner Admin Login</h2><p>Hidden owner area. Temporary password: <b>admin123</b></p>
+        <input id="adminPassword" type="password" placeholder="Enter admin password" /><button onclick="loginAdmin()">Login</button>
+      </div>
+      <div id="adminPanel" class="hidden">
+        <div class="admin-header"><div><h2>Owner Dashboard</h2><p>Manage cloud content.</p></div><button class="secondary" onclick="logoutAdmin()">Logout</button></div>
+        <div class="stats"><div><h3 id="statBusinesses">0</h3><p>Businesses</p></div><div><h3 id="statEvents">0</h3><p>Events</p></div><div><h3 id="statGroups">0</h3><p>Groups</p></div><div><h3 id="statPosts">0</h3><p>Posts</p></div><div><h3 id="statRequests">0</h3><p>Requests</p></div></div>
+        <div class="admin-grid">
+          <div class="card admin-card"><h3>Add Business</h3><input id="adminBizName" placeholder="Business name" /><input id="adminBizType" placeholder="Type" /><input id="adminBizCity" placeholder="City / State" /><textarea id="adminBizDesc" placeholder="Description"></textarea><button onclick="adminAddBusiness()">Add Business</button></div>
+          <div class="card admin-card">
+  <h3>Add Event</h3>
+  <input id="adminEventTitle" placeholder="Event title" />
+
+  <label class="field-label">Event Date</label>
+  <input id="adminEventDate" type="date" />
+
+  <label class="field-label">State</label>
+  <select id="adminEventState" onchange="loadMajorCities()">
+    <option value="">Select State</option>
+  </select>
+
+  <label class="field-label">Major City</label>
+  <select id="adminEventCity">
+    <option value="">Select City</option>
+  </select>
+
+  <input id="adminEventPrice" placeholder="Price / RSVP, example: Free RSVP or $25" />
+  <textarea id="adminEventDesc" placeholder="Description"></textarea>
+  <button onclick="adminAddEvent()">Add Event</button>
+</div>
+        </div>
+        <div class="card admin-card"><h3>Join Requests</h3><div id="adminRequests"></div></div>
+        <div class="card admin-card"><h3>Manage Posts</h3><div id="adminPosts"></div></div>
+      </div>
+    </section>
+  </section>
+
+  <aside class="right-sidebar">
+    <div class="card"><h3>Suggested Groups</h3><div id="suggestedGroups"></div></div>
+    <div class="card"><h3>Upcoming Events</h3><div id="suggestedEvents"></div></div>
+    <div class="card owner-card"><h3>Owner Access</h3><p>Hidden admin access.</p><button class="secondary" onclick="showPage('admin')">Owner Login</button></div>
+  </aside>
+</main>
+
+<div class="bottom-nav">
+  <button onclick="showPage('home')">🏠<span>Home</span></button><button onclick="showPage('feed')">💬<span>Feed</span></button><button onclick="showPage('groups')">👥<span>Groups</span></button><button onclick="showPage('events')">🎟️<span>Events</span></button><button onclick="showPage('discover')">📍<span>Find</span></button>
+</div>
+
+<footer><button class="secret-admin" onclick="showPage('admin')">Owner Admin</button><p>© USArab Guide — Connect. Discover. Celebrate. Belong.</p></footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
